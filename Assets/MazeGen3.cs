@@ -13,6 +13,7 @@ public class MazeGen3 : MonoBehaviour
     private MazeCell _entranceCell;
     private MazeCell _exitCell;
     public GameObject enemy;
+    public GameObject endzone;
 
     // Start is called before the first frame update
     IEnumerator Start()
@@ -39,7 +40,7 @@ public class MazeGen3 : MonoBehaviour
         ClearEntranceAndExitWalls();
 
         // Instantiate the enemy prefab
-        Instantiate(enemy, new Vector3(_mazeWidth - 1, 0, _mazeDepth - 1), Quaternion.identity);
+        Instantiate(enemy, new Vector3((_mazeWidth / 2), 0, (_mazeDepth / 2)), Quaternion.identity);
     }
 
     private IEnumerator GenerateMaze(MazeCell prevCell, MazeCell currentCell)
@@ -119,5 +120,8 @@ public class MazeGen3 : MonoBehaviour
 
         // Open the wall at the exit (top-right)
         _exitCell.ClearRightWall(); // Adjust this based on the wall direction you want open
+
+        //Instantiate trigger at end
+        Instantiate(endzone, new Vector3(_exitCell.transform.position.x + 0.5f, 0, _exitCell.transform.position.z), Quaternion.identity);
     }
 }

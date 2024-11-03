@@ -12,6 +12,8 @@ public class BasicAI : MonoBehaviour
     private float leftOrRight = 0f;
     public float checkDistance = 0.5f;
     public LayerMask wallLayer;
+    private float turnTimer = 0f;
+    private float turnCooldown = 1f;
     
 
     // Returns the distance between the object the script is attached to, and the targetObject
@@ -37,8 +39,6 @@ public class BasicAI : MonoBehaviour
 
         Vector3[] checkPaths = new Vector3[] {up, down, left, right};
 
-        // Vector3 checkPaths = new Vector3[] {Vector3.forward, down, left, right};
-
         //Check which paths don't have a wall
         for(int i = 0; i < checkPaths.Length; i++) {
             if(!isWallInFront(checkPaths[i])){
@@ -46,13 +46,17 @@ public class BasicAI : MonoBehaviour
             }
         }
 
+
+        //Pick random direction out of available paths and return it
         int randomDirection = (int) Random.Range(0, availablePaths.Count);
 
-        Debug.Log(randomDirection);
-        Debug.Log(availablePaths[randomDirection]);
         return availablePaths[randomDirection];
 
     }
+
+    // private Vector3 randomizeDirection(){
+
+    // }
 
 
     // Start is called before the first frame update
@@ -65,6 +69,7 @@ public class BasicAI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        turnTimer += Time.deltaTime;
         //Check if wall is in front
         if(isWallInFront(transform.forward)) {
             Debug.Log("Wall detected");
@@ -74,6 +79,41 @@ public class BasicAI : MonoBehaviour
 
             //Implement change to random direction here
         }
+
+        //Randomize path if new path becomes available
+
+        else if( turnTimer >= turnCooldown){
+            if(!isWallInFront(transform.right) || !isWallInFront(-transform.right)) {
+                Debug.Log("Turn randomly?");
+
+                Vector3 turnDirection = newDirection();
+
+                if(turnDirection != transform.forward && turnDirection != -transform.forward) {
+                    transform.forward = turnDirection;
+                }
+                turnTimer = 0f;
+
+                // transform.position = new Vector3(((float) (int) (transform.position.x + 0.5f)), 0f, ((float) (int) (transform.position.z + 0.5f)));
+                // transform.position.z = (float) (int) transform.position.z;
+            }
+            
+        }
+        
+
+        // else if((transform.position.x % 1 < 0.01) || (transform.position.z % 1 < 0.01)){
+        //     if(!isWallInFront(transform.right) || !isWallInFront(-transform.right)) {
+        //         Debug.Log("Turn randomly?");
+
+        //         Vector3 turnDirection = newDirection();
+
+        //         if(turnDirection != transform.forward && turnDirection != -transform.forward) {
+        //             transform.forward = turnDirection;
+        //         }
+
+        //         transform.position = new Vector3(((float) (int) transform.position.x + 0.5f), 0f, ((float) (int) transform.position.z));
+        //         // transform.position.z = (float) (int) transform.position.z;
+        //     }
+        // }
         
         // transform.LookAt(closestPlayerObj.transform);
 
