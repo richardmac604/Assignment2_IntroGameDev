@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da84329ddb8fed742904601bd199fb02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mazeCellPrefab: {fileID: 1852572877}
+  _mazeCellPrefab: {fileID: 0}
   _mazeWidth: 20
   _mazeDepth: 20
 --- !u!4 &521865734
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e95806690a14d754fbc25b65c44479fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mazeCellPrefab: {fileID: 4235880094052636815, guid: a3cf941cc4ff33e4ebca156b54266c56, type: 3}
+  _mazeCellPrefab: {fileID: 4591673503746180005, guid: a3cf941cc4ff33e4ebca156b54266c56, type: 3}
   _mazeWidth: 20
   _mazeDepth: 20
   enemy: {fileID: 2755124547065926074, guid: a7ad19e3d2f843f45badfeac96f7e374, type: 3}
@@ -373,17 +373,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1852572877 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4235880094052636815, guid: a3cf941cc4ff33e4ebca156b54266c56, type: 3}
-  m_PrefabInstance: {fileID: 266434162354213351}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c842db61379753348a30cf7e9211c534, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2115486935
 GameObject:
   m_ObjectHideFlags: 0
