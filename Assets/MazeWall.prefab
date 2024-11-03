@@ -327,7 +327,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3557302852458033049}
-  - component: {fileID: 6833003497312227493}
   m_Layer: 0
   m_Name: MazeWall
   m_TagString: Untagged
@@ -355,23 +354,6 @@ Transform:
   - {fileID: 5138570322535893258}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6833003497312227493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5227323445185513637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c842db61379753348a30cf7e9211c534, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _leftWall: {fileID: 2793478493702899695}
-  _rightWall: {fileID: 457058014511234422}
-  _frontWall: {fileID: 8727234645762324709}
-  _backWall: {fileID: 5813538229808951397}
-  _unvisitedBlock: {fileID: 2302238398410856352}
 --- !u!1 &5813538229808951397
 GameObject:
   m_ObjectHideFlags: 0
