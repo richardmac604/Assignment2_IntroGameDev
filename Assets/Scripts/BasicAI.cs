@@ -8,7 +8,6 @@ public class BasicAI : MonoBehaviour
     Animator animator;
 
     public float speed = 2.0f;
-    private float minDist = 1f;
     private float leftOrRight = 0f;
     public float checkDistance = 0.5f;
     public LayerMask wallLayer;

@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class FirstPersonController : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float lookSensitivity = 2f;
@@ -54,16 +53,7 @@ public class FirstPersonController : MonoBehaviour
     private void Move()
     {
         Vector3 moveDirection = transform.forward * moveInput.y + transform.right * moveInput.x;
-        if (isCollisionEnabled)
-        {
-            characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
-        }
-        else
-        {
-            Physics.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Default"), true);
-            characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
-            Physics.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Default"), false);
-        }
+        characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
     }
 
     private void Look()
@@ -88,13 +78,13 @@ public class FirstPersonController : MonoBehaviour
             velocity.y += gravity * Time.deltaTime;
         }
 
-        if (isCollisionEnabled || characterController.isGrounded)
-        {
-            characterController.Move(velocity * Time.deltaTime);
-        }
+        characterController.Move(velocity * Time.deltaTime);
     }
+
     private void ToggleCollision()
     {
         isCollisionEnabled = !isCollisionEnabled;
+        Physics.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Default"), !isCollisionEnabled);
+        Physics.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Wall"), !isCollisionEnabled);
     }
 }

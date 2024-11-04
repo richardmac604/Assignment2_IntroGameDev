@@ -53,6 +53,15 @@ public partial class @Movement: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Return"",
+                    ""type"": ""Button"",
+                    ""id"": ""3bb9a370-20f5-4d45-bb24-6370f26d8cef"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -220,6 +229,17 @@ public partial class @Movement: IInputActionCollection2, IDisposable
                     ""action"": ""Toggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5b8a2c52-6b85-4c56-a50e-4bf2d55f9991"",
+                    ""path"": ""<Keyboard>/home"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Return"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -231,6 +251,7 @@ public partial class @Movement: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Toggle = m_Player.FindAction("Toggle", throwIfNotFound: true);
+        m_Player_Return = m_Player.FindAction("Return", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -295,6 +316,7 @@ public partial class @Movement: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Toggle;
+    private readonly InputAction m_Player_Return;
     public struct PlayerActions
     {
         private @Movement m_Wrapper;
@@ -302,6 +324,7 @@ public partial class @Movement: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Toggle => m_Wrapper.m_Player_Toggle;
+        public InputAction @Return => m_Wrapper.m_Player_Return;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -320,6 +343,9 @@ public partial class @Movement: IInputActionCollection2, IDisposable
             @Toggle.started += instance.OnToggle;
             @Toggle.performed += instance.OnToggle;
             @Toggle.canceled += instance.OnToggle;
+            @Return.started += instance.OnReturn;
+            @Return.performed += instance.OnReturn;
+            @Return.canceled += instance.OnReturn;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -333,6 +359,9 @@ public partial class @Movement: IInputActionCollection2, IDisposable
             @Toggle.started -= instance.OnToggle;
             @Toggle.performed -= instance.OnToggle;
             @Toggle.canceled -= instance.OnToggle;
+            @Return.started -= instance.OnReturn;
+            @Return.performed -= instance.OnReturn;
+            @Return.canceled -= instance.OnReturn;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -355,5 +384,6 @@ public partial class @Movement: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnToggle(InputAction.CallbackContext context);
+        void OnReturn(InputAction.CallbackContext context);
     }
 }
