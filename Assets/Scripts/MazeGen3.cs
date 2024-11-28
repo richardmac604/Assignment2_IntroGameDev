@@ -14,6 +14,7 @@ public class MazeGen3 : MonoBehaviour
     private MazeCell _exitCell;
     public GameObject enemy;
     public GameObject endzone;
+    private Vector3 enemyStartPosition;
 
     // Start is called before the first frame update
     IEnumerator Start()
@@ -39,8 +40,10 @@ public class MazeGen3 : MonoBehaviour
         // Clear the walls for entrance and exit
         ClearEntranceAndExitWalls();
 
+
+        enemyStartPosition = new Vector3((_mazeWidth / 2), 0, (_mazeDepth / 2));
         // Instantiate the enemy prefab
-        Instantiate(enemy, new Vector3((_mazeWidth / 2), 0, (_mazeDepth / 2)), Quaternion.identity);
+        Instantiate(enemy, enemyStartPosition, Quaternion.identity);
     }
 
     private IEnumerator GenerateMaze(MazeCell prevCell, MazeCell currentCell)
@@ -123,5 +126,13 @@ public class MazeGen3 : MonoBehaviour
 
         //Instantiate trigger at end
         Instantiate(endzone, new Vector3(_exitCell.transform.position.x + 0.5f, 0, _exitCell.transform.position.z), Quaternion.identity);
+    }
+
+    void Update(){
+        if(Input.GetKeyDown(KeyCode.Home)) {
+            if(GameObject.FindWithTag("Enemy") != null) {
+                GameObject.FindWithTag("Enemy").GetComponent<Rigidbody>().position = enemyStartPosition;
+            }
+        }
     }
 }

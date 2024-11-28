@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BasicAI : MonoBehaviour
 {
-    private GameObject closestPlayerObj = null;
     Animator animator;
 
     public float speed = 2.0f;
@@ -61,7 +60,6 @@ public class BasicAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        closestPlayerObj = GameObject.FindGameObjectWithTag("Player1");
         animator = GetComponent<Animator>();
     }
     
@@ -91,30 +89,9 @@ public class BasicAI : MonoBehaviour
                     transform.forward = turnDirection;
                 }
                 turnTimer = 0f;
-
-                // transform.position = new Vector3(((float) (int) (transform.position.x + 0.5f)), 0f, ((float) (int) (transform.position.z + 0.5f)));
-                // transform.position.z = (float) (int) transform.position.z;
             }
             
         }
-        
-
-        // else if((transform.position.x % 1 < 0.01) || (transform.position.z % 1 < 0.01)){
-        //     if(!isWallInFront(transform.right) || !isWallInFront(-transform.right)) {
-        //         Debug.Log("Turn randomly?");
-
-        //         Vector3 turnDirection = newDirection();
-
-        //         if(turnDirection != transform.forward && turnDirection != -transform.forward) {
-        //             transform.forward = turnDirection;
-        //         }
-
-        //         transform.position = new Vector3(((float) (int) transform.position.x + 0.5f), 0f, ((float) (int) transform.position.z));
-        //         // transform.position.z = (float) (int) transform.position.z;
-        //     }
-        // }
-        
-        // transform.LookAt(closestPlayerObj.transform);
 
         animator.SetFloat("InputX", leftOrRight);
         animator.SetFloat("InputY", speed);
