@@ -17,6 +17,15 @@ public class PlayerMovement : MonoBehaviour
     private bool isCollisionEnabled = true;
     private float xRotation = 0f;
 
+    //Needed for sound while moving
+    private float minMoveDistance = 0.1f;
+    private Vector3 previousPosition;
+    public GameObject audioControllerObject;
+    private bool isMoving = false;
+    bool playOnce = false;
+    private AudioController audioController;
+
+
     private void Awake()
     {
         controls = new Movement();
@@ -33,6 +42,9 @@ public class PlayerMovement : MonoBehaviour
         characterController = GetComponent<CharacterController>();
     }
 
+    void Start(){
+        audioController = audioControllerObject.GetComponent<AudioController>();
+    }
     private void OnEnable()
     {
         controls.Player.Enable();
@@ -43,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
         controls.Player.Disable();
     }
 
-    private void Update()
+    void Update()
     {
         Move();
         Look();
@@ -54,6 +66,28 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 moveDirection = transform.forward * moveInput.y + transform.right * moveInput.x;
         characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
+
+        bool hasMovementInput = (moveInput != Vector2.zero);
+
+        if (hasMovementInput && !playOnce)
+        {
+            playOnce = true;
+            // Start playing the running sound
+            audioController.PlayRunning();
+            Debug.Log("Play Sound");
+        }
+        else if(!hasMovementInput)
+        {
+            // Stop playing the running sound
+            audioController.StopRunning();
+            Debug.Log("Stop Sound");
+            playOnce = false;
+        }
+
+        // if(moveDistance > minMoveDistance) {
+        //     audioController.GetComponent<AudioController>().PlayRunning();
+        //     previousPosition = transform.position;
+        // }
     }
 
     private void Look()

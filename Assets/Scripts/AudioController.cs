@@ -31,4 +31,8 @@ public class AudioController : MonoBehaviour
     public void PlayRunning(){
         aCtrl.playerRunning.Play();
     }
+
+    public void StopRunning(){
+        aCtrl.playerRunning.Stop();
+    }
 }
