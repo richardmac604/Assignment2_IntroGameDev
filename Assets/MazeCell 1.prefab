@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3977531582480731928}
   - component: {fileID: 3734827665325787069}
   - component: {fileID: 7937792588800845599}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Quad (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 8441825082478694873}
   - component: {fileID: 5615102236746760929}
   - component: {fileID: 4051824647543818507}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Quad (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 2190886106797178130}
   - component: {fileID: 5558223657692363897}
   - component: {fileID: 7535612401915636960}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Quad (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -384,7 +384,7 @@ GameObject:
   - component: {fileID: 502986748197186565}
   - component: {fileID: 5141355075029637316}
   - component: {fileID: 1071540408292675592}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -467,7 +467,7 @@ GameObject:
   - component: {fileID: 1598436198123573545}
   - component: {fileID: 2852260735193100758}
   - component: {fileID: 4034669601217742895}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -768,8 +768,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1484137659633564759}
   - component: {fileID: 4591673503746180005}
-  m_Layer: 3
-  m_Name: MazeCell
+  m_Layer: 0
+  m_Name: MazeCell 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -824,7 +824,7 @@ GameObject:
   - component: {fileID: 2694933173924132739}
   - component: {fileID: 1062604103451786659}
   - component: {fileID: 5510031458327131016}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -929,7 +929,7 @@ GameObject:
   - component: {fileID: 3076111556394902734}
   - component: {fileID: 2387230165626323623}
   - component: {fileID: 3280353520888806223}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1012,7 +1012,7 @@ GameObject:
   - component: {fileID: 6235451050294142008}
   - component: {fileID: 7757412004186615792}
   - component: {fileID: 1536017402102193798}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1095,7 +1095,7 @@ GameObject:
   - component: {fileID: 8909542675192882042}
   - component: {fileID: 5450291414045115031}
   - component: {fileID: 6565506677196697699}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}

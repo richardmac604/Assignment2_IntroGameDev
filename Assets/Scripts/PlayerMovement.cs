@@ -18,10 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private float xRotation = 0f;
 
     //Needed for sound while moving
-    private float minMoveDistance = 0.1f;
-    private Vector3 previousPosition;
     public GameObject audioControllerObject;
-    private bool isMoving = false;
     bool playOnce = false;
     private AudioController audioController;
 
@@ -62,6 +59,15 @@ public class PlayerMovement : MonoBehaviour
         ApplyGravity();
     }
 
+    void OnCollisionEnter(Collision other) {
+        Debug.Log(other.gameObject);
+        // If collide with a wall
+        if(other.gameObject.layer == 3) {
+            Debug.Log("Collision with Wall Layer Detected");
+            
+            audioController.PlayPlayerHitWall();
+        }
+    }
     private void Move()
     {
         Vector3 moveDirection = transform.forward * moveInput.y + transform.right * moveInput.x;
@@ -74,20 +80,13 @@ public class PlayerMovement : MonoBehaviour
             playOnce = true;
             // Start playing the running sound
             audioController.PlayRunning();
-            Debug.Log("Play Sound");
         }
         else if(!hasMovementInput)
         {
             // Stop playing the running sound
             audioController.StopRunning();
-            Debug.Log("Stop Sound");
             playOnce = false;
         }
-
-        // if(moveDistance > minMoveDistance) {
-        //     audioController.GetComponent<AudioController>().PlayRunning();
-        //     previousPosition = transform.position;
-        // }
     }
 
     private void Look()

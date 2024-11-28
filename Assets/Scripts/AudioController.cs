@@ -35,4 +35,8 @@ public class AudioController : MonoBehaviour
     public void StopRunning(){
         aCtrl.playerRunning.Stop();
     }
+
+    public void PlayPlayerHitWall(){
+        aCtrl.playerHitWall.Play();
+    }
 }
