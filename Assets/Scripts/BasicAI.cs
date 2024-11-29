@@ -12,7 +12,14 @@ public class BasicAI : MonoBehaviour
     public LayerMask wallLayer;
     private float turnTimer = 0f;
     private float turnCooldown = 1f;
+
+    // Code for dying and respawn
+    private GameObject enemyManager;
+    private int health = 3;
     
+    public void takeDamage(){
+        --health;
+    }
 
     // Returns the distance between the object the script is attached to, and the targetObject
     // Takes in a single GameObject and returns a float representing the distance
@@ -61,11 +68,24 @@ public class BasicAI : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        enemyManager = GameObject.Find("EnemyManager");
     }
     
+    void Update(){
+        
+        if (Input.GetKeyDown("space")){   
+            Debug.Log("Space presed");
+            enemyManager.GetComponent<EnemyManager>().EnemyDieSequence(gameObject);
+        }
+    }   
+
     // Update is called once per frame
     void FixedUpdate()
     {
+        // if(health <= 0) {
+        //     dieAndRespawn();
+        // }
+        
         turnTimer += Time.deltaTime;
         //Check if wall is in front
         if(isWallInFront(transform.forward)) {

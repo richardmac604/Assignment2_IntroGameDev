@@ -917,6 +917,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100016, guid: 2dc7b382d25903545b405802eb2198ab, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1871370349}
+    - targetCorrespondingSourceObject: {fileID: 100016, guid: 2dc7b382d25903545b405802eb2198ab, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1871370350}
   m_SourcePrefab: {fileID: 100100000, guid: 2dc7b382d25903545b405802eb2198ab, type: 3}
 --- !u!4 &1871370340 stripped
 Transform:
@@ -1035,6 +1038,14 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!81 &1871370350
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871370341}
+  m_Enabled: 1
 --- !u!1 &1908390693
 GameObject:
   m_ObjectHideFlags: 0

@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &521865733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +187,63 @@ MonoBehaviour:
   _mazeDepth: 20
   enemy: {fileID: 2755124547065926074, guid: a7ad19e3d2f843f45badfeac96f7e374, type: 3}
   endzone: {fileID: 423098653348246191, guid: af6f502fbf7d93748aafdfea1ab5d0c5, type: 3}
+--- !u!1001 &536939106
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2755124547065926074, guid: a7ad19e3d2f843f45badfeac96f7e374, type: 3}
+      propertyPath: m_Name
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257398719875422765, guid: a7ad19e3d2f843f45badfeac96f7e374, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257398719875422765, guid: a7ad19e3d2f843f45badfeac96f7e374, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257398719875422765, guid: a7ad19e3d2f843f45badfeac96f7e374, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257398719875422765, guid: a7ad19e3d2f843f45badfeac96f7e374, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257398719875422765, guid: a7ad19e3d2f843f45badfeac96f7e374, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257398719875422765, guid: a7ad19e3d2f843f45badfeac96f7e374, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257398719875422765, guid: a7ad19e3d2f843f45badfeac96f7e374, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257398719875422765, guid: a7ad19e3d2f843f45badfeac96f7e374, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257398719875422765, guid: a7ad19e3d2f843f45badfeac96f7e374, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257398719875422765, guid: a7ad19e3d2f843f45badfeac96f7e374, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a7ad19e3d2f843f45badfeac96f7e374, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,6 +702,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MazeWallPlane
       objectReference: {fileID: 0}
+    - target: {fileID: 5227323445185513637, guid: 67eca3291ab40094f85e986973e669a2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -661,3 +722,4 @@ SceneRoots:
   - {fileID: 266434162354213351}
   - {fileID: 2115486939}
   - {fileID: 1551121045705348180}
+  - {fileID: 536939106}
