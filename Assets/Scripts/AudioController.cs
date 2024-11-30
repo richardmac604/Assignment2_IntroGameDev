@@ -16,11 +16,19 @@ public class AudioController : MonoBehaviour
 
     public AudioSource freeBird;
 
+    // For Proximity Audio
     private GameObject player;
     private GameObject enemy;
     private float maxDistance = 10f;
     private float minVolume = 0f;
     private float maxVolume = 1f;
+
+    // For Day/Night Audio
+    private bool isItDay = true;
+
+    // For Fog audio reduction
+    private bool isItFoggy = false;
+    private static float globalVolume = 1f;
 
     public void Awake()
     {
@@ -78,7 +86,7 @@ public class AudioController : MonoBehaviour
             float distance = Vector3.Distance(enemy.transform.position, player.transform.position);
 
             float volume = Mathf.Clamp01(1 - (distance / maxDistance));
-            freeBird.volume = Mathf.Lerp(minVolume, maxVolume, volume);
+            freeBird.volume = Mathf.Lerp(minVolume, maxVolume, volume) * globalVolume;
         }
 
         if (freeBird.volume == 0 && freeBird.isPlaying) {
@@ -88,8 +96,59 @@ public class AudioController : MonoBehaviour
         }
     }
 
+    private void ChangeBGMusic(){
+        isItDay = !isItDay;
+    }
+
+    private void PlayBGMMusic(){
+        if(isItDay) {
+            nightBGMusic.Pause();
+            dayBGMusic.UnPause();
+        } else {
+            dayBGMusic.Pause();
+            nightBGMusic.UnPause();
+        }
+    }
+
+    // Change volume based on if it's foggy or not
+    private void FoggyVolume(){
+        AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+        
+        isItFoggy = !isItFoggy;
+        
+        // Set global volume multiplier
+        // Only alternates between 0.5 and 1 for volume
+        if(isItFoggy) {
+            globalVolume = 0.5f;
+            
+            for(int i = 0; i < audioSources.Length; i++) {
+
+                // Adjust volume accordingly
+                audioSources[i].volume *= globalVolume;
+            }
+
+        } else {
+            globalVolume = 1f;
+            for(int i = 0; i < audioSources.Length; i++) {
+
+                // Adjust volume accordingly
+                audioSources[i].volume = maxVolume;
+            }
+        }
+    }
+
     private void Update() {
+        PlayBGMMusic();
         EnemyProximityAudio();
+
+        if (Input.GetKeyDown(KeyCode.I)){   
+            Debug.Log("I presed");
+            FoggyVolume();
+        }
+        if (Input.GetKeyDown(KeyCode.P)){   
+            Debug.Log("P presed");
+            ChangeBGMusic();
+        }
     }
 
     
