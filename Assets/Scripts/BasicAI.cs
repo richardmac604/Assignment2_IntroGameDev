@@ -15,7 +15,8 @@ public class BasicAI : MonoBehaviour
 
     // Code for dying and respawn
     private GameObject enemyManager;
-    private int health = 3;
+    private int maxHealth = 3;
+    private int health;
     
     public void takeDamage(){
         --health;
@@ -59,9 +60,9 @@ public class BasicAI : MonoBehaviour
 
     }
 
-    // private Vector3 randomizeDirection(){
-
-    // }
+    public void resetHealth(){
+        health = maxHealth;
+    }
 
 
     // Start is called before the first frame update
@@ -69,6 +70,7 @@ public class BasicAI : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         enemyManager = GameObject.Find("EnemyManager");
+        health = maxHealth;
     }
     
     void Update(){

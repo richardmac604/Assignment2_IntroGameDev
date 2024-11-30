@@ -22,13 +22,19 @@ public class EnemyManager : MonoBehaviour
     private void Respawn(GameObject enemy){
         //Enable object to simulate respawn
         //Randomize "spawn" position
+        enemy.GetComponent<BasicAI>().resetHealth();
+        enemy.transform.position = RandomSpawnPosition();
         enemy.SetActive(true);
-        health = 3;
     }
 
+    // Used by enemy script
     public void EnemyDieSequence(GameObject enemy){
         StartCoroutine(dieAndRespawn(enemy));
     }
+
+    private Vector3 RandomSpawnPosition(){
+        return new Vector3(Random.Range(0, 20), 0, Random.Range(0, 20));
+   }
 
     
     // Start is called before the first frame update
