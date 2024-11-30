@@ -23,7 +23,8 @@ public class AudioController : MonoBehaviour
     private float minVolume = 0f;
     private float maxVolume = 1f;
 
-    // For Day/Night Audio
+    // For Day/Night Audio and play/pause
+    private bool playBGM = true;
     private bool isItDay = true;
 
     // For Fog audio reduction
@@ -100,7 +101,7 @@ public class AudioController : MonoBehaviour
         isItDay = !isItDay;
     }
 
-    private void PlayBGMMusic(){
+    private void PlayBGMusic(){
         if(isItDay) {
             nightBGMusic.Pause();
             dayBGMusic.UnPause();
@@ -108,6 +109,15 @@ public class AudioController : MonoBehaviour
             dayBGMusic.Pause();
             nightBGMusic.UnPause();
         }
+    }
+
+    private void PlayOrPauseBGM(){
+        playBGM = !playBGM;
+    }
+
+    private void PauseAllBGM(){
+        dayBGMusic.Pause();
+        nightBGMusic.Pause();
     }
 
     // Change volume based on if it's foggy or not
@@ -138,7 +148,11 @@ public class AudioController : MonoBehaviour
     }
 
     private void Update() {
-        PlayBGMMusic();
+        if(playBGM){
+            PlayBGMusic();
+        } else {
+            PauseAllBGM();
+        }
         EnemyProximityAudio();
 
         if (Input.GetKeyDown(KeyCode.I)){   
@@ -148,6 +162,10 @@ public class AudioController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P)){   
             Debug.Log("P presed");
             ChangeBGMusic();
+        }
+        if (Input.GetKeyDown(KeyCode.L)){   
+            Debug.Log("L presed");
+            PlayOrPauseBGM();
         }
     }
 
