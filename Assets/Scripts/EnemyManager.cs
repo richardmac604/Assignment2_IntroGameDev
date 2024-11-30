@@ -9,14 +9,17 @@ public class EnemyManager : MonoBehaviour
     private Coroutine stopwatchCoroutine;
     private float respawnTimer;
     private int respawnCooldown = 3;
+    public AudioController aCtrl;
 
      private IEnumerator dieAndRespawn(GameObject enemy){
         //Play audio clip
+        aCtrl.PlayEnemyDying();
         //Disable enemy object
         enemy.SetActive(false);
         //Coroutine timer, respawn after 5seconds
         yield return new WaitForSeconds(respawnCooldown);
         Respawn(enemy);
+        aCtrl.PlayEnemyRespawning();
     }
 
     private void Respawn(GameObject enemy){

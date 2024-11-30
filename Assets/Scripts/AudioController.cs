@@ -39,4 +39,11 @@ public class AudioController : MonoBehaviour
     public void PlayPlayerHitWall(){
         aCtrl.playerHitWall.Play();
     }
+    public void PlayEnemyRespawning(){
+        aCtrl.enemyRespawn.Play();
+    }
+    public void PlayEnemyDying(){
+        aCtrl.enemyDying.Play();
+    }
+    
 }
