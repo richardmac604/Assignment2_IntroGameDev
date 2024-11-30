@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BasicAI : MonoBehaviour
 {
-    private GameObject closestPlayerObj = null;
     Animator animator;
 
     public float speed = 2.0f;
@@ -13,7 +12,15 @@ public class BasicAI : MonoBehaviour
     public LayerMask wallLayer;
     private float turnTimer = 0f;
     private float turnCooldown = 1f;
+
+    // Code for dying and respawn
+    private GameObject enemyManager;
+    private int maxHealth = 3;
+    private int health;
     
+    public void takeDamage(){
+        --health;
+    }
 
     // Returns the distance between the object the script is attached to, and the targetObject
     // Takes in a single GameObject and returns a float representing the distance
@@ -53,21 +60,34 @@ public class BasicAI : MonoBehaviour
 
     }
 
-    // private Vector3 randomizeDirection(){
-
-    // }
+    public void resetHealth(){
+        health = maxHealth;
+    }
 
 
     // Start is called before the first frame update
     void Start()
     {
-        closestPlayerObj = GameObject.FindGameObjectWithTag("Player1");
         animator = GetComponent<Animator>();
+        enemyManager = GameObject.Find("EnemyManager");
+        health = maxHealth;
     }
     
+    void Update(){
+        
+        if (Input.GetKeyDown("space")){   
+            Debug.Log("Space presed");
+            enemyManager.GetComponent<EnemyManager>().EnemyDieSequence(gameObject);
+        }
+    }   
+
     // Update is called once per frame
     void FixedUpdate()
     {
+        // if(health <= 0) {
+        //     dieAndRespawn();
+        // }
+        
         turnTimer += Time.deltaTime;
         //Check if wall is in front
         if(isWallInFront(transform.forward)) {
@@ -91,30 +111,9 @@ public class BasicAI : MonoBehaviour
                     transform.forward = turnDirection;
                 }
                 turnTimer = 0f;
-
-                // transform.position = new Vector3(((float) (int) (transform.position.x + 0.5f)), 0f, ((float) (int) (transform.position.z + 0.5f)));
-                // transform.position.z = (float) (int) transform.position.z;
             }
             
         }
-        
-
-        // else if((transform.position.x % 1 < 0.01) || (transform.position.z % 1 < 0.01)){
-        //     if(!isWallInFront(transform.right) || !isWallInFront(-transform.right)) {
-        //         Debug.Log("Turn randomly?");
-
-        //         Vector3 turnDirection = newDirection();
-
-        //         if(turnDirection != transform.forward && turnDirection != -transform.forward) {
-        //             transform.forward = turnDirection;
-        //         }
-
-        //         transform.position = new Vector3(((float) (int) transform.position.x + 0.5f), 0f, ((float) (int) transform.position.z));
-        //         // transform.position.z = (float) (int) transform.position.z;
-        //     }
-        // }
-        
-        // transform.LookAt(closestPlayerObj.transform);
 
         animator.SetFloat("InputX", leftOrRight);
         animator.SetFloat("InputY", speed);

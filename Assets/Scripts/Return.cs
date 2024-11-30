@@ -4,6 +4,7 @@ public class Return : MonoBehaviour
     private Movement controls;
     private CharacterController characterController;
     private Rigidbody rb;
+    private Vector3 startPosition = new Vector3(-2f, 0, 0);
 
     private void Awake()
     {
@@ -33,16 +34,20 @@ public class Return : MonoBehaviour
         if (characterController != null)
         {
             characterController.enabled = false;
-            transform.position = Vector3.zero;
+            // transform.position = Vector3.zero;
+
+            transform.position = startPosition;
             characterController.enabled = true;
         }
         else if (rb != null)
         {
-            rb.MovePosition(Vector3.zero);
+            // rb.MovePosition(Vector3.zero);
+            rb.MovePosition(startPosition);
         }
         else
         {
-            transform.position = Vector3.zero;
+            // transform.position = Vector3.zero;
+            transform.position = startPosition;
         }
 
         Debug.Log("New Position: " + transform.position);
