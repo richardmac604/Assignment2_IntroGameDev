@@ -51,9 +51,27 @@ public class AudioController : MonoBehaviour
         aCtrl.enemyDying.Play();
     }
 
+    public void PlayDayBGM(){
+        aCtrl.dayBGMusic.Play();
+    }
+    public void PauseDayBGM(){
+        aCtrl.dayBGMusic.Pause();
+    }
+
+    public void PlayNightBGM(){
+        aCtrl.nightBGMusic.Play();
+    }
+    public void PauseNightBGM(){
+        aCtrl.nightBGMusic.Pause();
+    }
+
     // Proximity Audio for Enemy
     private void EnemyProximityAudio(){
-        if (player == null || enemy == null){
+        // Set audio to 0 if either 
+        // 1) Player doesn't exist
+        // 2) Enemy doesn't exist (not spawned yet initially)
+        // 3) Enemy is inactive
+        if (player == null || enemy == null || !enemy.activeSelf){
             freeBird.volume = 0;
             enemy = GameObject.FindWithTag("Enemy");
         } else {
