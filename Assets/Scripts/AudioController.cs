@@ -35,8 +35,6 @@ public class AudioController : MonoBehaviour
     {
         if(aCtrl == null)
         {
-            // levelMusic = bgMusic1.GetComponnt<AudioSource>();
-            // levelMusic.loop = true;
             aCtrl = this;
         }
         player = GameObject.FindWithTag("Player");
@@ -48,6 +46,10 @@ public class AudioController : MonoBehaviour
 
     public void StopRunning(){
         aCtrl.playerRunning.Stop();
+    }
+
+    public void PlayBallHitWall(){
+        aCtrl.ballHitWall.Play();
     }
 
     public void PlayPlayerHitWall(){
@@ -148,13 +150,16 @@ public class AudioController : MonoBehaviour
     }
 
     private void Update() {
+
         if(playBGM){
             PlayBGMusic();
         } else {
             PauseAllBGM();
         }
+
         EnemyProximityAudio();
 
+        // Keycodes for fog, changing between day/night bgm, and play/pausing bgm
         if (Input.GetKeyDown(KeyCode.I)){   
             Debug.Log("I presed");
             FoggyVolume();
