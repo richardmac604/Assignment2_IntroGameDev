@@ -14,10 +14,14 @@ public class AudioController : MonoBehaviour
     public AudioSource dayBGMusic;
     public AudioSource nightBGMusic;
 
-    public AudioSource sfxSrc;
-    private AudioSource levelMusic;
+    public AudioSource freeBird;
 
-    // Start is called before the first frame update
+    private GameObject player;
+    private GameObject enemy;
+    private float maxDistance = 10f;
+    private float minVolume = 0f;
+    private float maxVolume = 1f;
+
     public void Awake()
     {
         if(aCtrl == null)
@@ -26,6 +30,7 @@ public class AudioController : MonoBehaviour
             // levelMusic.loop = true;
             aCtrl = this;
         }
+        player = GameObject.FindWithTag("Player");
     }
 
     public void PlayRunning(){
@@ -45,5 +50,29 @@ public class AudioController : MonoBehaviour
     public void PlayEnemyDying(){
         aCtrl.enemyDying.Play();
     }
+
+    // Proximity Audio for Enemy
+    private void EnemyProximityAudio(){
+        if (player == null || enemy == null){
+            freeBird.volume = 0;
+            enemy = GameObject.FindWithTag("Enemy");
+        } else {
+            float distance = Vector3.Distance(enemy.transform.position, player.transform.position);
+
+            float volume = Mathf.Clamp01(1 - (distance / maxDistance));
+            freeBird.volume = Mathf.Lerp(minVolume, maxVolume, volume);
+        }
+
+        if (freeBird.volume == 0 && freeBird.isPlaying) {
+            freeBird.Pause();
+        } else if (freeBird.volume > 0 && !freeBird.isPlaying) {
+            freeBird.UnPause();
+        }
+    }
+
+    private void Update() {
+        EnemyProximityAudio();
+    }
+
     
 }
