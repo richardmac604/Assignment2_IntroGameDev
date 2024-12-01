@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement; // Required for scene management
 
 public class MazeGen3 : MonoBehaviour
 {
     [SerializeField] private MazeCell _mazeCellPrefab;
     [SerializeField] private int _mazeWidth;
     [SerializeField] private int _mazeDepth;
+    [SerializeField] private GameObject wallTriggerPrefab; // Prefab for the wall trigger
+    [SerializeField] private string nextSceneName; // Name of the scene to load
 
     private MazeCell[,] _mazeGrid;
     private MazeCell _entranceCell;
@@ -16,7 +19,6 @@ public class MazeGen3 : MonoBehaviour
     public GameObject endzone;
     private Vector3 enemyStartPosition;
 
-    // Start is called before the first frame update
     IEnumerator Start()
     {
         _mazeGrid = new MazeCell[_mazeWidth, _mazeDepth];
@@ -31,8 +33,8 @@ public class MazeGen3 : MonoBehaviour
         }
 
         // Define entrance and exit points
-        _entranceCell = _mazeGrid[0, 0];             // Bottom-left corner (or any other starting point)
-        _exitCell = _mazeGrid[_mazeWidth - 1, _mazeDepth - 1];  // Top-right corner (or any other end point)
+        _entranceCell = _mazeGrid[0, 0];
+        _exitCell = _mazeGrid[_mazeWidth - 1, _mazeDepth - 1];
 
         // Generate the maze starting from the entrance
         yield return GenerateMaze(null, _entranceCell);
@@ -40,9 +42,10 @@ public class MazeGen3 : MonoBehaviour
         // Clear the walls for entrance and exit
         ClearEntranceAndExitWalls();
 
+        // Replace a wall with a trigger
+        AddWallTrigger();
 
         enemyStartPosition = new Vector3((_mazeWidth / 2), 0, (_mazeDepth / 2));
-        // Instantiate the enemy prefab
         Instantiate(enemy, enemyStartPosition, Quaternion.identity);
     }
 
@@ -54,7 +57,7 @@ public class MazeGen3 : MonoBehaviour
             ClearWalls(prevCell, currentCell);
         }
 
-        yield return new WaitForSeconds(0.05f); // Optional delay for visualization
+        yield return new WaitForSeconds(0.05f);
 
         MazeCell nextCell;
         do
@@ -66,6 +69,17 @@ public class MazeGen3 : MonoBehaviour
                 yield return GenerateMaze(currentCell, nextCell);
             }
         } while (nextCell != null);
+    }
+
+    private void AddWallTrigger()
+    {
+        // Choose a random cell and a random wall for the trigger
+        MazeCell triggerCell = _mazeGrid[Random.Range(0, _mazeWidth), Random.Range(0, _mazeDepth)];
+        Vector3 triggerPosition = triggerCell.transform.position;
+
+        // Offset to position the trigger where the wall would be
+        Vector3 triggerOffset = new Vector3(1f, 0.5f, 0.3f); // Example: Replace right wall
+        Instantiate(wallTriggerPrefab, triggerPosition + triggerOffset, Quaternion.identity);
     }
 
     private MazeCell GetNextUnvisitedCell(MazeCell currentCell)
@@ -118,19 +132,17 @@ public class MazeGen3 : MonoBehaviour
 
     private void ClearEntranceAndExitWalls()
     {
-        // Open the wall at the entrance (bottom-left)
-        _entranceCell.ClearLeftWall(); // Adjust this based on the wall direction you want open
-
-        // Open the wall at the exit (top-right)
-        _exitCell.ClearRightWall(); // Adjust this based on the wall direction you want open
-
-        //Instantiate trigger at end
+        _entranceCell.ClearLeftWall();
+        _exitCell.ClearRightWall();
         Instantiate(endzone, new Vector3(_exitCell.transform.position.x + 0.5f, 0, _exitCell.transform.position.z), Quaternion.identity);
     }
 
-    void Update(){
-        if(Input.GetKeyDown(KeyCode.Home)) {
-            if(GameObject.FindWithTag("Enemy") != null) {
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Home))
+        {
+            if (GameObject.FindWithTag("Enemy") != null)
+            {
                 GameObject.FindWithTag("Enemy").GetComponent<Rigidbody>().position = enemyStartPosition;
             }
         }
