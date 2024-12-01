@@ -9,8 +9,8 @@ public class MazeGen3 : MonoBehaviour
     [SerializeField] private MazeCell _mazeCellPrefab;
     [SerializeField] private int _mazeWidth;
     [SerializeField] private int _mazeDepth;
-    [SerializeField] private GameObject wallTriggerPrefab; // Prefab for the wall trigger
-    [SerializeField] private string nextSceneName; // Name of the scene to load
+    [SerializeField] private GameObject wallTriggerPrefab; 
+   
 
     private MazeCell[,] _mazeGrid;
     private MazeCell _entranceCell;
