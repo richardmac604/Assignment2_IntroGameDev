@@ -16,6 +16,9 @@ public class AudioController : MonoBehaviour
 
     public AudioSource freeBird;
 
+    public GameObject flashLight;
+    private bool flashLightToggle;
+
     // For Proximity Audio
     private GameObject player;
     private GameObject enemy;
@@ -161,16 +164,21 @@ public class AudioController : MonoBehaviour
 
         // Keycodes for fog, changing between day/night bgm, and play/pausing bgm
         if (Input.GetKeyDown(KeyCode.I)){   
-            Debug.Log("I presed");
+            Debug.Log("I pressed");
             FoggyVolume();
         }
         if (Input.GetKeyDown(KeyCode.P)){   
-            Debug.Log("P presed");
+            Debug.Log("P pressed");
             ChangeBGMusic();
         }
         if (Input.GetKeyDown(KeyCode.L)){   
-            Debug.Log("L presed");
+            Debug.Log("L pressed");
             PlayOrPauseBGM();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            flashLightToggle = !flashLightToggle;
+            flashLight.SetActive(flashLightToggle);
         }
     }
 
