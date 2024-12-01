@@ -62,6 +62,15 @@ public partial class @Movement: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ThrowBall"",
+                    ""type"": ""Button"",
+                    ""id"": ""f4d35356-bc39-47cd-ac0e-9706245ca0da"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -240,6 +249,17 @@ public partial class @Movement: IInputActionCollection2, IDisposable
                     ""action"": ""Return"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dc68906d-54af-40ba-8ee6-5cc9fdab88b1"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ThrowBall"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -252,6 +272,7 @@ public partial class @Movement: IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Toggle = m_Player.FindAction("Toggle", throwIfNotFound: true);
         m_Player_Return = m_Player.FindAction("Return", throwIfNotFound: true);
+        m_Player_ThrowBall = m_Player.FindAction("ThrowBall", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -317,6 +338,7 @@ public partial class @Movement: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Toggle;
     private readonly InputAction m_Player_Return;
+    private readonly InputAction m_Player_ThrowBall;
     public struct PlayerActions
     {
         private @Movement m_Wrapper;
@@ -325,6 +347,7 @@ public partial class @Movement: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Toggle => m_Wrapper.m_Player_Toggle;
         public InputAction @Return => m_Wrapper.m_Player_Return;
+        public InputAction @ThrowBall => m_Wrapper.m_Player_ThrowBall;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -346,6 +369,9 @@ public partial class @Movement: IInputActionCollection2, IDisposable
             @Return.started += instance.OnReturn;
             @Return.performed += instance.OnReturn;
             @Return.canceled += instance.OnReturn;
+            @ThrowBall.started += instance.OnThrowBall;
+            @ThrowBall.performed += instance.OnThrowBall;
+            @ThrowBall.canceled += instance.OnThrowBall;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -362,6 +388,9 @@ public partial class @Movement: IInputActionCollection2, IDisposable
             @Return.started -= instance.OnReturn;
             @Return.performed -= instance.OnReturn;
             @Return.canceled -= instance.OnReturn;
+            @ThrowBall.started -= instance.OnThrowBall;
+            @ThrowBall.performed -= instance.OnThrowBall;
+            @ThrowBall.canceled -= instance.OnThrowBall;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -385,5 +414,6 @@ public partial class @Movement: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnToggle(InputAction.CallbackContext context);
         void OnReturn(InputAction.CallbackContext context);
+        void OnThrowBall(InputAction.CallbackContext context);
     }
 }

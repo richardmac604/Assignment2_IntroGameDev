@@ -1,0 +1,34 @@
+{
+    "name": "FogControl",
+    "maps": [
+        {
+            "name": "ControlFog",
+            "id": "c4f0725e-45b8-4c25-9be2-591d919f8597",
+            "actions": [
+                {
+                    "name": "FogToggle",
+                    "type": "Button",
+                    "id": "3eae5bfa-174e-48a7-a34a-b40eadd410c0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0dfc5cfb-84c3-4d51-9555-72546adb5118",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FogToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
