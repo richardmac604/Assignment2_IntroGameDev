@@ -1,53 +1,57 @@
-Shader "Custom/Flashlight"
+Shader "Custom/FlashlightBeam"
 {
     Properties
     {
-        _Color ("Color", Color) = (1,1,1,1)
-        _MainTex ("Albedo (RGB)", 2D) = "white" {}
-        _Glossiness ("Smoothness", Range(0,1)) = 0.5
-        _Metallic ("Metallic", Range(0,1)) = 0.0
+        _BeamColor ("Beam Color", Color) = (1, 1, 1, 1)
+        _BeamIntensity ("Beam Intensity", Range(0, 1)) = 1.0
+        _BeamLength ("Beam Length", Float) = 5.0
+        _BeamWidth ("Beam Width", Float) = 2.0
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "Queue"="Transparent" "RenderType"="Transparent" }
+        Blend SrcAlpha OneMinusSrcAlpha
+        ZWrite Off
         LOD 200
 
         CGPROGRAM
-        // Physically based Standard lighting model, and enable shadows on all light types
-        #pragma surface surf Standard fullforwardshadows
+        #pragma surface surf Lambert alpha:fade
 
-        // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0
-
-        sampler2D _MainTex;
 
         struct Input
         {
-            float2 uv_MainTex;
+            float3 worldPos; // World position of the fragment
+            float2 uv_MainTex; // UV coordinates
         };
 
-        half _Glossiness;
-        half _Metallic;
-        fixed4 _Color;
+        fixed4 _BeamColor;
+        float _BeamIntensity;
+        float _BeamLength;
+        float _BeamWidth;
 
-        // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
-        // See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
-        // #pragma instancing_options assumeuniformscaling
-        UNITY_INSTANCING_BUFFER_START(Props)
-            // put more per-instance properties here
-        UNITY_INSTANCING_BUFFER_END(Props)
-
-        void surf (Input IN, inout SurfaceOutputStandard o)
+        void surf(Input IN, inout SurfaceOutput o)
         {
-            // Albedo comes from a texture tinted by color
-            fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-            o.Albedo = c.rgb;
-            // Metallic and smoothness come from slider variables
-            o.Metallic = _Metallic;
-            o.Smoothness = _Glossiness;
-            o.Alpha = c.a;
+            // Radial distance from center of cone
+            float radialDistance = length(IN.uv_MainTex - 0.5);
+
+            // Length fade based on world position (distance along the cone)
+            float lengthFade = saturate(1.0 - (IN.worldPos.z / _BeamLength));
+
+            // Radial fade to taper the beam
+            float radialFade = saturate(1.0 - (radialDistance * _BeamWidth));
+
+            // Combine effects with intensity
+            float beamEffect = _BeamIntensity * radialFade * lengthFade;
+
+            // Ensure a minimum alpha for visibility
+            beamEffect = max(beamEffect, 0.1);
+
+            // Output color and transparency
+            o.Albedo = _BeamColor.rgb * beamEffect;
+            o.Alpha = _BeamColor.a * beamEffect;
         }
         ENDCG
     }
-    FallBack "Diffuse"
+    FallBack "Transparent/Diffuse"
 }
