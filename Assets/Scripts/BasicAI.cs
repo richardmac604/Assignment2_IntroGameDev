@@ -67,6 +67,13 @@ public class BasicAI : MonoBehaviour
         health = maxHealth;
     }
 
+    void OnCollisionEnter(Collision other){
+        if(other.gameObject.tag == "Player") {
+            Debug.Log("Teleporting Player");
+            other.gameObject.GetComponent<Return>().TeleportToOrigin();
+        }
+   }
+
 
     // Start is called before the first frame update
     void Start()
@@ -81,6 +88,10 @@ public class BasicAI : MonoBehaviour
         
         if (Input.GetKeyDown("space")){   
             Debug.Log("Space presed");
+            enemyManager.GetComponent<EnemyManager>().EnemyDieSequence(gameObject);
+        }
+
+        if(health <= 0) {
             enemyManager.GetComponent<EnemyManager>().EnemyDieSequence(gameObject);
         }
     }   

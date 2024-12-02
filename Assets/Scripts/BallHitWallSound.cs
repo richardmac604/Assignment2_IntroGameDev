@@ -10,5 +10,10 @@ public class BallHitWallSound : MonoBehaviour
         if(other.gameObject.layer == 3) {
             audioControllerObject.GetComponent<AudioController>().PlayBallHitWall();
         }
+
+        if(other.gameObject.tag == "Enemy") {
+            other.gameObject.GetComponent<BasicAI>().takeDamage();
+            Destroy(gameObject);
+        }
     }
 }

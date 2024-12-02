@@ -28,7 +28,7 @@ public class Return : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    private void TeleportToOrigin()
+    public void TeleportToOrigin()
     {
         Debug.Log("Teleporting");
         if (characterController != null)
