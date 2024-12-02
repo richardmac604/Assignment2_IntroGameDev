@@ -7,7 +7,7 @@ public class WallTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player")) // Check if the player interacts with the trigger
         {
-            SceneManager.LoadScene("WinnerScene"); // Replace with your next scene name
+            SceneManager.LoadScene("PongGame"); // Replace with your next scene name
         }
     }
 }
