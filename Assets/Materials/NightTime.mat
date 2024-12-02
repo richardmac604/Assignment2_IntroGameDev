@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: NightTime
-  m_Shader: {fileID: 4800000, guid: 484bedac727c5d2468fa29c0bd8cbf39, type: 3}
+  m_Shader: {fileID: 4800000, guid: 674924e1caecccf4db9c0d7effbc0773, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
