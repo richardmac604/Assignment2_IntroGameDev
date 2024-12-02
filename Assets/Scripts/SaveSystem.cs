@@ -1,4 +1,5 @@
 using System.IO;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SaveSystem : MonoBehaviour
@@ -11,20 +12,36 @@ public class SaveSystem : MonoBehaviour
     }
 
     [System.Serializable]
+    public class EnemyData
+    {
+        public Vector3 position; // Save position of each enemy
+    }
+
+    [System.Serializable]
     public class PlayerData
     {
         public Vector3 position;
         public int score;
+        public List<EnemyData> enemiesData; // List of enemy positions
     }
 
-    // Save the player state and score
-    public void SavePlayerState(Vector3 position, int score)
+    public void SaveGameState(Vector3 playerPosition, int score, List<GameObject> enemies)
     {
         PlayerData data = new PlayerData
         {
-            position = position,
-            score = score
+            position = playerPosition,
+            score = score,
+            enemiesData = new List<EnemyData>()
         };
+
+        // Save positions of enemies
+        foreach (var enemy in enemies)
+        {
+            if (enemy != null)
+            {
+                data.enemiesData.Add(new EnemyData { position = enemy.transform.position });
+            }
+        }
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(savePath, json);
@@ -32,8 +49,7 @@ public class SaveSystem : MonoBehaviour
         Debug.Log("Game Saved: " + savePath);
     }
 
-    // Load player state and score
-    public PlayerData LoadPlayerState()
+    public PlayerData LoadGameState()
     {
         if (File.Exists(savePath))
         {

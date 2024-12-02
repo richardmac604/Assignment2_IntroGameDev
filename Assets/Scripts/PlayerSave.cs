@@ -1,9 +1,13 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerSave : MonoBehaviour
 {
     private SaveSystem saveSystem;
     private ScoreManager scoreManager;
+
+    // List to store the enemies dynamically
+    private List<GameObject> enemies = new List<GameObject>();
 
     private void Start()
     {
@@ -13,69 +17,66 @@ public class PlayerSave : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F5))
+        if (Input.GetKeyDown(KeyCode.F5)) // Save game on F5 press
         {
             SaveGame();
         }
 
-        if (Input.GetKeyDown(KeyCode.F6))
+        if (Input.GetKeyDown(KeyCode.F6)) // Load game on F6 press
         {
             LoadGame();
+        }
+
+        // Dynamically add newly spawned enemies (example)
+        UpdateEnemyList();
+    }
+
+    // Function to update the enemies list dynamically
+    private void UpdateEnemyList()
+    {
+        // Example: You would call this whenever enemies are spawned
+        enemies.Clear(); // Clear existing list
+        GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy"); // Assuming all enemies are tagged "Enemy"
+
+        foreach (GameObject enemy in allEnemies)
+        {
+            if (!enemies.Contains(enemy)) // Avoid duplicates if enemies are already added
+            {
+                enemies.Add(enemy);
+            }
         }
     }
 
     public void SaveGame()
     {
-        saveSystem.SavePlayerState(transform.position, scoreManager.GetScore());
-        Debug.Log($"Game Saved! Position: {transform.position}, Score: {scoreManager.GetScore()}");
+        // Get player position and score
+        Vector3 playerPosition = transform.position;
+        int playerScore = scoreManager.GetScore();
+
+        // Save enemy positions
+        saveSystem.SaveGameState(playerPosition, playerScore, enemies);
+        Debug.Log($"Game Saved! Player Position: {playerPosition}, Score: {playerScore}");
     }
 
     public void LoadGame()
     {
-        var data = saveSystem.LoadPlayerState();
+        var data = saveSystem.LoadGameState();
         if (data != null)
         {
+            // Load player position
+            transform.position = data.position;
+            scoreManager.SetScore(data.score);
             Debug.Log($"Loaded Position: {data.position}, Score: {data.score}");
 
-            // Disable movement or controller components temporarily
-            PlayerMovement controller = GetComponent<PlayerMovement>();
-            if (controller != null)
+            // Load enemy positions (assuming enemies have already been spawned)
+            for (int i = 0; i < data.enemiesData.Count; i++)
             {
-                controller.enabled = false;
+                if (i < enemies.Count && enemies[i] != null) // Ensure enemy exists
+                {
+                    enemies[i].transform.position = data.enemiesData[i].position;
+                    Debug.Log($"Enemy {i} Loaded Position: {enemies[i].transform.position}");
+                }
             }
-
-            CharacterController charController = GetComponent<CharacterController>();
-            if (charController != null)
-            {
-                charController.enabled = false;
-            }
-
-            Rigidbody rb = GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.isKinematic = true;
-            }
-
-            transform.position = data.position;
-
-            scoreManager.SetScore(data.score);
-
-            if (rb != null)
-            {
-                rb.isKinematic = false;
-            }
-
-            if (charController != null)
-            {
-                charController.enabled = true;
-            }
-
-            if (controller != null)
-            {
-                controller.enabled = true;
-            }
-
-            Debug.Log($"Player Position After Teleport: {transform.position}, Score After Load: {scoreManager.GetScore()}");
         }
         else
         {
