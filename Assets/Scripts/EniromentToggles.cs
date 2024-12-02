@@ -5,6 +5,7 @@ public class DayNightToggle : MonoBehaviour
     [SerializeField] private GameObject dayNightMaterial;
     [SerializeField] private GameObject Fog;
     [SerializeField] public Light lightSource;
+
     private Vector3 rotation = Vector3.zero;
     private bool isDay = true;
     private bool isFog = true;
@@ -18,11 +19,13 @@ public class DayNightToggle : MonoBehaviour
             dayNightMaterial.SetActive(isDay);
             if (isDay)
             {
+              
                 rotation.x = rotation.x + 190f;
                 lightSource.transform.Rotate(rotation, Space.World);
             }
             else
             {
+                
                 rotation.x = rotation.x + 190f;
                 lightSource.transform.Rotate(rotation, Space.World);
             }
@@ -34,6 +37,7 @@ public class DayNightToggle : MonoBehaviour
         {
             isFog = !isFog;
             Fog.SetActive(isFog);
+          
         }
     }
 

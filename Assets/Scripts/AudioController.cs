@@ -126,7 +126,7 @@ public class AudioController : MonoBehaviour
     }
 
     // Change volume based on if it's foggy or not
-    private void FoggyVolume(){
+    public void FoggyVolume(){
         AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
         
         isItFoggy = !isItFoggy;
@@ -163,7 +163,7 @@ public class AudioController : MonoBehaviour
         EnemyProximityAudio();
 
         // Keycodes for fog, changing between day/night bgm, and play/pausing bgm
-        if (Input.GetKeyDown(KeyCode.I)){   
+        if (Input.GetKeyDown(KeyCode.F)){   
             Debug.Log("I pressed");
             FoggyVolume();
         }
@@ -174,6 +174,13 @@ public class AudioController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L)){   
             Debug.Log("L pressed");
             PlayOrPauseBGM();
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Debug.Log("T pressed");
+            ChangeBGMusic();
+
+
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
