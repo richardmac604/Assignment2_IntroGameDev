@@ -11,9 +11,9 @@ public class ScoreManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.F12))
         {
             score++;
+            Debug.Log("Score Increased: " + score);
+            UpdateScoreDisplay();
         }
-        Debug.Log("Score Increased: " + score);
-        UpdateScoreDisplay();
     }
 
 
@@ -48,5 +48,6 @@ public class ScoreManager : MonoBehaviour
 
     void Update()
     {
+        IncreaseScore();
     }
 }
