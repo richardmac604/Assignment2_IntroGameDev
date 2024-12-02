@@ -47,6 +47,7 @@ public class MazeGen3 : MonoBehaviour
 
         enemyStartPosition = new Vector3((_mazeWidth / 2), 0, (_mazeDepth / 2));
         Instantiate(enemy, enemyStartPosition, Quaternion.identity);
+        
     }
 
     private IEnumerator GenerateMaze(MazeCell prevCell, MazeCell currentCell)

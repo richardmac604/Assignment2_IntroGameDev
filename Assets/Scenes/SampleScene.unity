@@ -2287,7 +2287,6 @@ MonoBehaviour:
   _mazeWidth: 20
   _mazeDepth: 20
   wallTriggerPrefab: {fileID: 1795112842233572149, guid: 1c5a4b723b4bf404f960343f48beea7e, type: 3}
-  nextSceneName: 
   enemy: {fileID: 2755124547065926074, guid: a7ad19e3d2f843f45badfeac96f7e374, type: 3}
   endzone: {fileID: 423098653348246191, guid: af6f502fbf7d93748aafdfea1ab5d0c5, type: 3}
 --- !u!114 &1908390695
