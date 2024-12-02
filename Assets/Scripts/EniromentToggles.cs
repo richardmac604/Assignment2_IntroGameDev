@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class DayNightToggle : MonoBehaviour
 {
-    [SerializeField] private Material dayNightMaterial;
+    [SerializeField] private GameObject dayNightMaterial;
     [SerializeField] private GameObject Fog;
+    [SerializeField] public Light lightSource;
+    private Vector3 rotation = Vector3.zero;
     private bool isDay = true;
     private bool isFog = true;
 
@@ -13,8 +15,18 @@ public class DayNightToggle : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
         {
             isDay = !isDay;
-            UpdateLighting();
-            Debug.Log("Change Night or day");
+            dayNightMaterial.SetActive(isDay);
+            if (isDay)
+            {
+                rotation.x = rotation.x + 190f;
+                lightSource.transform.Rotate(rotation, Space.World);
+            }
+            else
+            {
+                rotation.x = rotation.x + 190f;
+                lightSource.transform.Rotate(rotation, Space.World);
+            }
+           
         }
 
        
@@ -25,9 +37,5 @@ public class DayNightToggle : MonoBehaviour
         }
     }
 
-    private void UpdateLighting()
-    {
-        // Set the blend factor based on the current mode
-        dayNightMaterial.SetFloat("_BlendFactor", isDay ? 1f : 0f);
-    }
+  
 }
