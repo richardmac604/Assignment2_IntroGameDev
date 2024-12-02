@@ -48,6 +48,5 @@ public class ScoreManager : MonoBehaviour
 
     void Update()
     {
-        IncreaseScore();
     }
 }
