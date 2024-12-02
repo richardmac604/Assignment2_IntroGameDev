@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -7,29 +5,49 @@ public class ScoreManager : MonoBehaviour
 {
     private int score = 0;
     public TextMeshProUGUI scoreText;
-    public void increaseScore(){
-        score++;
+
+    public void IncreaseScore()
+    {
+        if(Input.GetKeyDown(KeyCode.F12))
+        {
+            score++;
+        }
+        Debug.Log("Score Increased: " + score);
         UpdateScoreDisplay();
     }
 
-    private void resetScore(){
+
+    public void ResetScore()
+    {
         score = 0;
+        Debug.Log("Score Reset: " + score);
         UpdateScoreDisplay();
     }
 
-    private void UpdateScoreDisplay(){
+    public void SetScore(int newScore)
+    {
+        score = newScore;
+        Debug.Log("Score Set: " + score);
+        UpdateScoreDisplay();
+    }
+
+    public int GetScore()
+    {
+        return score;
+    }
+
+    private void UpdateScoreDisplay()
+    {
         scoreText.text = "Score: " + score;
     }
-    
-    // Start is called before the first frame update
+
     void Start()
     {
         UpdateScoreDisplay();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        IncreaseScore();
     }
 }

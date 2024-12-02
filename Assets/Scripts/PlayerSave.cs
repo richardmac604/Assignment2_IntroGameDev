@@ -1,13 +1,14 @@
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerSave : MonoBehaviour
 {
     private SaveSystem saveSystem;
+    private ScoreManager scoreManager;
 
     private void Start()
     {
         saveSystem = FindObjectOfType<SaveSystem>();
+        scoreManager = FindObjectOfType<ScoreManager>();
     }
 
     private void Update()
@@ -25,17 +26,16 @@ public class PlayerSave : MonoBehaviour
 
     public void SaveGame()
     {
-        saveSystem.SavePlayerState(transform.position);
-        Debug.Log($"Game Saved! Position: {transform.position}");
+        saveSystem.SavePlayerState(transform.position, scoreManager.GetScore());
+        Debug.Log($"Game Saved! Position: {transform.position}, Score: {scoreManager.GetScore()}");
     }
-
 
     public void LoadGame()
     {
         var data = saveSystem.LoadPlayerState();
         if (data != null)
         {
-            Debug.Log($"Loaded Position: {data.position}");
+            Debug.Log($"Loaded Position: {data.position}, Score: {data.score}");
 
             // Disable movement or controller components temporarily
             PlayerMovement controller = GetComponent<PlayerMovement>();
@@ -58,6 +58,8 @@ public class PlayerSave : MonoBehaviour
 
             transform.position = data.position;
 
+            scoreManager.SetScore(data.score);
+
             if (rb != null)
             {
                 rb.isKinematic = false;
@@ -73,14 +75,11 @@ public class PlayerSave : MonoBehaviour
                 controller.enabled = true;
             }
 
-            Debug.Log($"Player Position After Teleport: {transform.position}");
+            Debug.Log($"Player Position After Teleport: {transform.position}, Score After Load: {scoreManager.GetScore()}");
         }
         else
         {
             Debug.LogWarning("No save file found!");
         }
     }
-
-
-
 }

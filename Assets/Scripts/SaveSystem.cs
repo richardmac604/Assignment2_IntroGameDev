@@ -14,13 +14,16 @@ public class SaveSystem : MonoBehaviour
     public class PlayerData
     {
         public Vector3 position;
+        public int score;
     }
 
-    public void SavePlayerState(Vector3 position)
+    // Save the player state and score
+    public void SavePlayerState(Vector3 position, int score)
     {
         PlayerData data = new PlayerData
         {
-            position = position
+            position = position,
+            score = score
         };
 
         string json = JsonUtility.ToJson(data, true);
@@ -29,6 +32,7 @@ public class SaveSystem : MonoBehaviour
         Debug.Log("Game Saved: " + savePath);
     }
 
+    // Load player state and score
     public PlayerData LoadPlayerState()
     {
         if (File.Exists(savePath))
