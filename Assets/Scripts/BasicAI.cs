@@ -103,7 +103,6 @@ public class BasicAI : MonoBehaviour
 
         else if( turnTimer >= turnCooldown){
             if(!isWallInFront(transform.right) || !isWallInFront(-transform.right)) {
-                Debug.Log("Turn randomly?");
 
                 Vector3 turnDirection = newDirection();
 
