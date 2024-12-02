@@ -18,8 +18,11 @@ public class BasicAI : MonoBehaviour
     private int maxHealth = 3;
     private int health;
     
+    private GameObject scoreManager;
+    
     public void takeDamage(){
         --health;
+        scoreManager.GetComponent<ScoreManager>().increaseScore();
     }
 
     // Returns the distance between the object the script is attached to, and the targetObject
@@ -71,6 +74,7 @@ public class BasicAI : MonoBehaviour
         animator = GetComponent<Animator>();
         enemyManager = GameObject.Find("EnemyManager");
         health = maxHealth;
+        scoreManager = GameObject.Find("ScoreDisplayManager");
     }
     
     void Update(){
